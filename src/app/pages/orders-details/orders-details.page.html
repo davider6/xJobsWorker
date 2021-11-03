@@ -1,0 +1,191 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-buttons>
+        </ion-buttons>
+        <ion-title>Detalle de Orden de Trabajo</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item class=".ion-justify-content-start" lines="none">
+                    <ion-avatar>
+                        <img src="{{orderDetails.occupationImage}}" class=".ion-align-self-center" />
+                        <ion-grid>
+                            <ion-row class="ion-text-center">
+                                <ion-col>
+                                    <ion-text color="dark">
+                                        <b>
+                                            <font size="2">{{orderDetails.occupationName}}</font>
+                                        </b>
+                                    </ion-text>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-avatar>
+                    <ion-label>
+                        <ion-text color="dark">
+                            <b>
+                                <font size="1">Nombre del solicitante</font>
+                            </b>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <p>{{ orderDetails.clientName}}</p>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <b>
+                                <font size="1">Dirección</font>
+                            </b>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <p>{{orderDetails.address}}</p>
+                        </ion-text>
+
+                        <ion-text color="dark">
+                            <b>
+                                <font size="1">Fecha de la orden</font>
+                            </b>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <p>{{ orderDetails.workDate | date:'medium' }}</p>
+                        </ion-text>
+                        <ion-text color="dark" *ngIf="endDate">
+                            <b>
+                                <font size="1">Fecha de finalización</font>
+                            </b>
+                        </ion-text>
+                        <ion-text color="dark" *ngIf="endDate">
+                            <p>{{ orderDetails.finishTime | date:'medium' }}</p>
+                        </ion-text>
+                        <br>
+                        <ion-router-link class="underline" (click)="proposeNewDate()" *ngIf="proposeDate">
+                            <b>
+                                <u><font size="1">Proponer nueva fecha</font></u>
+                            </b>
+                        </ion-router-link>
+                        <ion-text color="dark">
+                            <p>&nbsp;</p>
+                        </ion-text>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <div class="ion-padding" *ngIf="startOrder">
+            <ion-button expand="block" type="submit" class="primary-btn" (click)="processStartOrder()">
+                <ion-icon slot="start" name="calendar-forward"></ion-icon>Iniciar orden de trabajo
+            </ion-button>
+        </div>
+        <div class="ion-padding" *ngIf="finalize">
+            <ion-button expand="block" type="submit" class="primary-btn" (click)="closeOrder()">
+                <ion-icon slot="start" name="stop"></ion-icon>Finalizar orden de trabajo
+            </ion-button>
+        </div>
+        <ion-row class="ion-text-center">
+            <ion-col>
+                <ion-button class="primary-btn" size="small" shape="round" (click)="updateStateOfOrder(orderDetails.orderId,'ACCEPTED', orderDetails.status)" *ngIf="accept">
+                    <ion-icon name="thumbs-up"></ion-icon>
+                    &nbsp;Aceptar
+                </ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button class="secondary-btn" size="small" shape="round" (click)="updateStateOfOrder(orderDetails.orderId,'REJECTED', orderDetails.status)" *ngIf="reject">
+                    <ion-icon name="thumbs-down"></ion-icon>
+                    &nbsp;Rechazar
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-toolbar style="margin-top: -5px;">
+        <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment">
+            <ion-segment-button value="0">
+                <ion-label>Ubicación</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="1">
+                <ion-label>Solicitado</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2" *ngIf="finalize">
+                <ion-label>Finalizar</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+        <ion-slides class="tab-order-details" #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
+            <ion-slide>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col class="ion-text-center">
+                            <h3>¿Dónde ejecutar la orden?</h3>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <div style="border: solid 5px #FFFFFF; border-radius: 8px; height: 100%;">
+                                <div id="map_canvas" class="map"></div>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-slide>
+            <ion-slide>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-text class="ion-text-left">
+                                <p>
+                                    {{ orderDetails.description }}
+                                </p>
+                            </ion-text>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="gallery">
+                        <div style="overflow-y: scroll;  width: 100%; height: 100%;">
+                            <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12" *ngFor="let homeOwnerPic of homeOwnerPics">
+
+                                <img style="border-radius: 10px; width: 300px;" tappable src="{{ homeOwnerPic }}" (click)="imagePreview(homeOwnerPic)">
+
+                            </ion-col>
+                        </div>
+                    </ion-row>
+                </ion-grid>
+            </ion-slide>
+            <ion-slide class="tab-order-details" *ngIf="finalize">
+                <ion-card>
+                    <ion-card-content>
+                        <div *ngIf="orderDetails.status!=='PUBLIC'">
+                            <form #form="ngForm" (ngSubmit)="closeOrder()">
+                                <ion-list lines="full" class="ion-no-margin ion-no-padding">
+                                    <ion-item>
+                                        <b><ion-label>
+                                            Duración: </ion-label></b>
+                                        <ion-label>{{this.duration}}</ion-label>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-label position="floating">
+                                            Describa su experiencia:</ion-label>
+                                        <ion-textarea [(ngModel)]="description" name="description" type="text" inputmode="latin-name" rows="4"></ion-textarea>
+                                    </ion-item>
+                                    <app-image-slider [upload]="true" [closed]="false" [temp]="true" [loadTemp]="false"></app-image-slider>
+                                </ion-list>
+                            </form>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+            </ion-slide>
+        </ion-slides>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <!-- <div *ngIf="orderDetails.status == 'In Progress'">
+                <ion-fab-button (click)="setCloseOrder()" color="xjobs">
+                    <ion-icon name="flag"></ion-icon>
+                </ion-fab-button>
+            </div> -->
+            <!-- <div *ngIf="orderDetails.status != 'In Progress'">
+                                <ion-fab-button (click)="createNewOrder()" color="xjobs">
+                                    <ion-icon name="construct"></ion-icon>
+                                </ion-fab-button>
+                            </div> -->
+        </ion-fab>
+    </ion-toolbar>
+</ion-content>

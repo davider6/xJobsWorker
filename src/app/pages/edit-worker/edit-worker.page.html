@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-back-button (click)="returnHome()"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Actualización de Datos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div *ngIf="isLoaded">
+        <ion-list class="ion-no-margin ion-no-padding" class="animate__animated animate__fadeIn">
+            <ion-item class="ion-text-center">
+                <span class="primary_title">
+                    Datos Generales
+                </span>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="workerObje.fullName" name="fullName" type="latin-name" inputmode="latin-name" placeholder="Nombre Completo" maxlength="60"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input [(ngModel)]="workerObje.email" name="email" type="email" inputmode="email" placeholder="Correo Electrónico" maxlength="150" disabled="true"></ion-input>
+            </ion-item>
+            <ion-item>                
+                <ion-input [(ngModel)]="workerObje.telephoneNumber" name="workerObje.telephoneNumber" type="text" inputmode="tel" placeholder="Número de Teléfono" maxlength="50"></ion-input>
+                <ion-input [(ngModel)]="workerObje.zipCode" name="zipCode" type="text" inputmode="tel" placeholder="Zip Code" maxlength="10"></ion-input>
+            </ion-item>
+            <br>
+            <ion-radio-group name="levelExperience" [(ngModel)]="workerObje.englishLevel">
+                <ion-list-header>
+                    <ion-label>Nivel de Experiencia:</ion-label>
+                </ion-list-header>
+                <ion-item>
+                    <ion-label>Media (0 a 5 años)</ion-label>
+                    <ion-radio slot="start" value="N"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Avanzada (5 a 10 años)</ion-label>
+                    <ion-radio slot="start" value="B"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Experto (10 años en adelante)</ion-label>
+                    <ion-radio slot="start" value="A"></ion-radio>
+                </ion-item>
+            </ion-radio-group>
+            <br>
+            <div class="ion-padding">
+                <ion-button expand="block " (click)="register()" class="primary-btn">Actualizar Datos Generales</ion-button>
+            </div>
+        </ion-list>
+
+        <ion-list>
+            <ion-item class="ion-text-center">
+                <span class="primary_title">
+                    Ocupaciones Asignadas
+                </span>
+            </ion-item>
+            <ion-item *ngFor="let wo of workerOccupations">
+                <ion-avatar slot="start">
+                    <img [src]="wo.categoryImageOccupation">
+                </ion-avatar>
+                <ion-label>
+                    <h2>{{wo.nameOccupation}}</h2>
+                    <h3>Rate: ${{wo.hourlyRate}}</h3>
+                </ion-label>
+                <ion-button class="secondary-btn" fill="outline" slot="end" (click)="deleteOccupation(wo)">Eliminar</ion-button>
+            </ion-item>
+        </ion-list>
+
+        <ion-list>
+            <ion-item color="primary">
+                <ion-label >
+                    Asignar Nuevas Ocupaciones
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Categoria</ion-label>
+                <ion-select interface="action-sheet" multiple="false" (ionChange)="categoryChange()" [(ngModel)]="selCategoryId">
+                    <ion-select-option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Sub Categoria</ion-label>
+                <ion-select interface="action-sheet" multiple="false" [(ngModel)]="selOccupationsId">
+                    <ion-select-option *ngFor="let catOc of categoryOccupations" value="{{ catOc.occupationId }}">{{ catOc.occName }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Tarifa por Hora</ion-label>
+                <ion-input class="ion-text-left" [(ngModel)]="selRate" name="rate" placeholder="Tarifa por Hora" inputmode="number" type="number"></ion-input>
+                <ion-button class="primary-btn" slot="end" (click)="saveOccupation()">Agregar</ion-button>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

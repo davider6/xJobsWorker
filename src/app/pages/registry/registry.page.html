@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title></ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="ion-text-center">
+        <img src="../../../assets/workerLogo.png" class="onboarding-image"/>
+        <br><br>
+        <span class="primary_title">Complete su información</span>        
+    </div>
+    <br>
+    <form #form="ngForm" (ngSubmit)="register(form)">
+        <div *ngIf="user">
+            <ion-avatar class="image-center">
+                <!-- <img src=""> -->
+                <img [src]="user.imagen">
+            </ion-avatar>
+            <br>
+        </div>
+
+        <ion-list class="ion-no-margin ion-no-padding" class="animate__animated animate__fadeIn">
+            <ion-item>
+                <ion-input [(ngModel)]="fullName" name="fullName" type="latin-name" inputmode="latin-name" placeholder="Nombre Completo" maxlength="60"></ion-input>
+            </ion-item>            
+            <ion-item>
+                <ion-input [(ngModel)]="email" name="email" type="email" inputmode="email" placeholder="Correo Electrónico" maxlength="150"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input ngModel name="telephoneNumber" type="text" inputmode="tel" placeholder="Número de Teléfono" maxlength="50"></ion-input>
+                <ion-input ngModel name="zipCode" type="text" inputmode="tel" placeholder="Zip Code" maxlength="10"></ion-input>
+            </ion-item>
+            <!-- <br>
+            <ion-radio-group name="levelExperience" [(ngModel)]="experience">
+                <ion-list-header>
+                    <ion-label>Nivel de Experiencia:</ion-label>
+                </ion-list-header>
+                <ion-item>
+                    <ion-label>Media (0 a 5 años)</ion-label>
+                    <ion-radio slot="start" value="N"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Avanzada (5 a 10 años)</ion-label>
+                    <ion-radio slot="start" value="B"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Experto (10 años en adelante)</ion-label>
+                    <ion-radio slot="start" value="A"></ion-radio>
+                </ion-item>
+            </ion-radio-group> -->
+            <br>
+            <ion-item *ngIf="!user">
+                <ion-input ngModel name="workerPassword" type="password" inputmode="latin-name" placeholder="Contraseña"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="!user">
+                <ion-input ngModel name="workerPassword2" type="password" inputmode="latin-name" placeholder="Confirmar Contraseña"></ion-input>
+            </ion-item>
+        </ion-list>
+
+        <input [(ngModel)]="experience" type="hidden" name="levelExperience" id="levelExperience">
+        <input [(ngModel)]="status" type="hidden" name="status" id="status">
+        <input [(ngModel)]="imgProfile" type="hidden" name="profileImage" id="profileImage">
+
+        <div class="ion-padding">
+            <ion-button expand="block" type="submit" class="primary-btn">Crear Registro</ion-button>
+        </div>
+    </form>
+</ion-content>

@@ -1,0 +1,99 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-buttons>
+        </ion-buttons>
+        <ion-title>Solicitud Cambio de Fecha</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item class=".ion-justify-content-start" lines="none">
+                    <ion-avatar>
+                        <img src="{{orderDetails.occupationImage}}" class=".ion-align-self-center" />
+                        <ion-grid>
+                            <ion-row class="ion-text-center">
+                                <ion-col>
+                                    <ion-text color="dark">
+                                        <b>
+                                          <font size="2">{{orderDetails.occupationName}}</font>
+                                      </b>
+                                    </ion-text>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-avatar>
+                    <ion-label>
+                        <ion-text color="dark">
+                            <b>
+                              <font size="1">Nombre del solicitante</font>
+                          </b>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <p>{{ orderDetails.clientName}}</p>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <b>
+                              <font size="1">Dirección</font>
+                          </b>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <p>{{orderDetails.address}}</p>
+                        </ion-text>
+
+                        <ion-text color="dark">
+                            <b>
+                              <font size="1">Fecha de la orden</font>
+                          </b>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <p>{{ orderDetails.workDate | date:'medium' }}</p>
+                        </ion-text>
+                        <ion-text color="dark">
+                            <p>&nbsp;</p>
+                        </ion-text>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-toolbar style="margin-top: -5px;" *ngIf="isLoaded">
+        <div class="ion-padding">
+            <ion-button expand="block" type="submit" class="primary-btn" (click)="proposeNewDate()">
+                <ion-icon name="calendar-number"></ion-icon>Proponer nueva fecha
+            </ion-button>
+        </div>
+        <div>
+            <ion-card>
+                <ion-card-content>
+                    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+                        <ion-item>
+                            <ion-label>Seleccione fecha:</ion-label>
+                            <ion-datetime [(ngModel)]="proposedDate" display-format="MMM DD YYYY" picker-format="MM DD YYYY" [min]="minDate" [max]="maxDate"></ion-datetime>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Seleccione Horario:</ion-label>
+                            <ion-datetime [(ngModel)]="proposedTime" display-format="HH mm" picker-format="HH:mm"></ion-datetime>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Justifique el cambio de fecha:</ion-label>
+                            <ion-textarea [(ngModel)]="description" type="text" inputmode="latin-name" rows="4"></ion-textarea>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </div>
+        <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <div *ngIf="orderDetails.status == 'In Progress'">
+                <ion-fab-button (click)="setCloseOrder()" color="xjobs">
+                    <ion-icon name="flag"></ion-icon>
+                </ion-fab-button>
+            </div>
+        </ion-fab> -->
+    </ion-toolbar>
+</ion-content>

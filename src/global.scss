@@ -1,0 +1,92 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+.section-active {
+    --ion-item-background: #043261;
+    --ion-item-color: #fff;
+    ion-icon {
+        color: #fff;
+    }
+}
+
+.section {
+    --ion-item-background: rgb(224, 224, 224);
+    --ion-item-color: #000;
+}
+
+.action-sheets-groups-page {
+    .FacebookIcon {
+        ion-icon {
+            color: #3b5998 !important;
+        }
+    }
+    .GoogleIcon {
+        ion-icon {
+            color: #db4a39 !important;
+        }
+    }
+}
+
+.onboarding-image {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.primary-btn {
+    --background: #F59D8A;
+    --border-radius: 15px;
+    font-weight: bold;
+}
+
+.secondary-btn {
+    --background: #FFF;    
+    --border-radius: 15px;
+    --color: #282289;
+    --border-color: #282289;
+}
+
+.tertiary-btn {
+    --background: #FFF;    
+    --border-radius: 15px;
+    --color: rgba(36, 46, 79, 0.5);
+    --border-color: #282289;
+}
+
+.primary_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #282289;
+}

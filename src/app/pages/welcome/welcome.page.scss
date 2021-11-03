@@ -1,0 +1,28 @@
+.background-image {
+    --background: none;
+    background: url('../../../assets/welcome/bg-1.jpg') no-repeat fixed center;
+    background-size: cover;
+  }
+
+p {
+    color: black;
+}
+
+ion-card {
+    color: black;
+    background-color: white;
+    box-shadow:none !important;
+}
+
+.welcome_card {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px 0px 0px !important;
+    height: 85vw;
+}
+
+.to_bottom{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}

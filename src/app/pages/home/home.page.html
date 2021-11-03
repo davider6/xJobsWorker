@@ -1,0 +1,104 @@
+<ion-header [translucent]="true" >
+    <ion-toolbar color="dark">
+        <ion-title>
+            Bienvenido a XJobs
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button menu="main-menu" (click)="openInfoProfile()"></ion-menu-button>
+        </ion-buttons>
+        <!-- <ion-avatar *ngIf="worker" slot="end" (click)="openInfoProfile()" class="worker-avatar">
+            <img *ngIf=" worker.profileImage && worker.profileImage !== '' " [src]="worker.profileImage" />
+            <img *ngIf=" !worker.profileImage || worker.profileImage === '' " src="../../../assets/welcome/logoWorker.jpg" />
+        </ion-avatar> -->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="updateData($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <h2 class="ion-text-center">Ordenes de trabajo</h2>
+    <p class="ion-text-center">Toca una barra para ver m&aacute;s</p>
+    <canvas #topChart height="200"></canvas>
+    <br /><br />
+    <ngx-datatable [ngClass]="tableStyle" style="height: 320px; border: 0px;" [rows]="orders" columnMode="'force'" [headerHeight]="50" [rowHeight]="40" [scrollbarV]="true" [scrollbarH]="true">
+        <ngx-datatable-column prop="orderId" name="#" [frozenLeft]="true" width="90"></ngx-datatable-column>
+        <!--ngx-datatable-column prop="category" name="Category" width="190"></ngx-datatable-column-->
+        <ngx-datatable-column prop="zipCode" name="Zip Code" width="80"></ngx-datatable-column>
+        <ngx-datatable-column prop="status" name="Estado" width="110">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <ion-badge [color]="setColor(value)" (click)="openDetails(row)">{{value}}</ion-badge>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="workDate" name="Fecha" width="100">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{value | date:'MM/dd/yyyy' }}
+            </ng-template>
+        </ngx-datatable-column>
+        <!--ngx-datatable-column prop="execution" name="Execution" width="90"></ngx-datatable-column-->
+    </ngx-datatable>
+</ion-content>
+
+<ion-menu side="end" contentId="main" menuId="main-menu">
+    <ion-content class="main-menu-padding">
+        <ion-avatar class="image-center" *ngIf="worker">
+            <img *ngIf="worker.profileImage" [src]="worker.profileImage" />
+            <img *ngIf="!worker.profileImage" src="../../../assets/welcome/logoWorker.jpg" />
+        </ion-avatar>
+        <ion-grid fixed *ngIf="worker">
+            <ion-row class="ion-text-center">
+                <ion-col size="12">
+                    <h2> {{ worker.fullName }} </h2>
+                    <span class="profile-subtitle">
+                        Nivel de Experiencia: 
+                        {{ (( worker.englishLevel == 'N')? 'Media': (( worker.englishLevel == 'A' )?'Experto': 'Avanzada') ) }}
+                    </span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <br>
+
+        <ion-list *ngIf="worker">
+            <ion-item>
+                <ion-icon slot="start" name="call" color="success"></ion-icon>
+                <ion-label>
+                    {{ worker.telephoneNumber }}
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-icon slot="start" name="pin" color="danger"></ion-icon>
+                <ion-label>
+                    {{ worker.zipCode }}
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-icon slot="start" name="mail" color="dark"></ion-icon>
+                <ion-label>
+                    {{ worker.email }}
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <br>
+        <ion-grid fixed>
+            <ion-row class="ion-text-center">
+                <ion-col size="12">
+                    <ion-button (click)="editWorker()" expand="block" class="primary-btn">
+                        Actualizar Datos
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid fixed>
+            <ion-row class="ion-text-center">
+                <ion-col size="12">
+                    <ion-button (click)="signOut()" expand="block" class="secondary-btn" fill="outline">
+                        Cerrar sesión
+                    </ion-button>
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-content>
+</ion-menu>

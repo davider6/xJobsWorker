@@ -1,0 +1,7 @@
+{
+  "name": "xJobsWorker",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

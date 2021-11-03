@@ -1,0 +1,37 @@
+:host {
+    .background-image {
+        --background: url('../../../assets/img/login-background.jpg') no-repeat 100% 100%;
+    }
+}
+
+.first-input {
+    border-radius: 10px 10px 0 0;
+}
+
+.second-input {
+    border-radius: 0 0 10px 10px;
+}
+
+.to-button {
+    position: absolute;
+    bottom: 1%;
+    margin-bottom: 10px;
+    p {
+        color: #dedede;
+        font-size: 18px;
+        margin-bottom: 0;
+        margin-left: -15px;
+        span {
+            color: #478FFC;
+        }
+    }
+}
+
+.to-top {
+    position: absolute;
+    top: 30%;
+}
+
+h2 {
+    color: white;
+}

@@ -1,0 +1,114 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Listado de Ordenes ({{status}})
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">    
+    <ion-refresher slot="fixed" (ionRefresh)="updateData($event)" >
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..." >
+        </ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="!loaded">
+        <ion-list>
+            <ion-item *ngFor="let i of [0,1,2,3,4,5,6,7,8]">
+                <ion-thumbnail slot="start">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-thumbnail>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+                    </p>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-list style="background-color: #F59D8A !important;">
+        <ion-card *ngFor="let ord of orders" class="ion-no-padding" (click)="openDetails(ord)">
+            <ion-item style="background-color: #F5F5F5 !important;">
+                <ion-avatar slot="start">
+                    <img *ngIf=" ord.profileImage && ord.profileImage !== '' " [src]="ord.profileImage" />
+                    <img *ngIf=" !ord.profileImage ||ord.profileImage === '' " src="../../../assets/profiles/profile.jpg" />
+                </ion-avatar>
+                <ion-label style="color: #515D73 !important">
+                    <h2><span style="color: #253659 !important; font-weight: bold;">{{ord.occupationName}}</span></h2>
+                    <p>{{ord.clientName}}</p>                    
+                    </ion-label>
+            </ion-item>
+            <ion-card-content>
+                {{ord.description.substr(0,150)}}                
+            </ion-card-content>
+            <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=640x350&maptype=roadmap&markers=color:red%7C{{ord.latitude}},{{ord.longitude}}&key=AIzaSyDfI8fbeuGwtgTJxEMABzDwHZ8GTH11Tiw" />
+            <ion-card-header>
+                <ion-card-subtitle>{{ord.address}}</ion-card-subtitle>
+                <p>{{ ord.workDate | date: 'medium' }}</p>
+            </ion-card-header>                                  
+        </ion-card>
+        <!-- <ion-item-sliding *ngFor="let ord of orders">
+            <ion-item class=".ion-justify-content-start" lines="none" (click)="openDetails(ord)">
+                <ion-avatar>
+                    <img src="{{ord.occupationImage}}" class=".ion-align-self-center" />
+                    <ion-grid>
+                        <ion-row class="ion-text-center">
+                            <ion-col>
+                                <ion-text color="dark">
+                                    <b><font size="3">{{ord.occupationName}}</font></b>
+                                </ion-text>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-avatar>
+                <ion-label>
+                    <ion-text color="dark">
+                        <b><font size="1">Nombre del solicitante</font></b>
+                    </ion-text>
+                    <ion-text color="dark">
+                        <p>{{ ord.clientName}}</p>
+                    </ion-text>
+
+                    <ion-text color="dark">
+                        <b><font size="1">Descripción</font></b>
+                    </ion-text>
+                    <ion-text color="dark">
+                        <p>{{ord.description.substr(0,100)}}</p>
+                    </ion-text>
+
+                    <ion-text color="dark">
+                        <b><font size="1">Dirección</font></b>
+                    </ion-text>
+                    <ion-text color="dark">
+                        <p>{{ord.address}}</p>
+                    </ion-text>
+
+                    <ion-text color="dark">
+                        <b><font size="1">Fecha de la orden</font></b>
+                    </ion-text>
+                    <ion-text color="dark">
+                        <p>{{ ord.workDate | date: 'medium' }}</p>
+                    </ion-text>
+                </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="dark" (click)="updateStateOfOrder(ord.orderId,'ACCEPTED')">
+                    <ion-icon  slot="top" name="thumbs-up"></ion-icon>
+                    Aceptar
+                </ion-item-option>
+                <ion-item-option color="xjobs" (click)="updateStateOfOrder(ord.orderId,'REJECTED')">
+                    <ion-icon  slot="top" name="thumbs-down"></ion-icon>
+                    Rechazar
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding> -->
+    </ion-list>
+</ion-content>

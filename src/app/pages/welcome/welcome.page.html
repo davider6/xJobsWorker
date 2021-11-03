@@ -1,0 +1,161 @@
+<body>
+    <ion-app>
+        <ion-content fullscreen class="background-image ion-padding" no-scroll>
+            <ion-card style="background-color: #FFE7E7 !important;">
+            <img src="../../../assets/welcome/fullwidth-image1.png" class="onboarding-image"/>
+                <ion-slides (ionSlideDidChange)="slideChanged()" [options]="{lockSwipeToPrev: true}" #welcomeSlider style="margin-top: -30px;" >
+                    <ion-slide style="margin-top: -20px;" >
+                        <div class="slide">
+                            <ion-card class="welcome_card">
+                                <ion-card-header class="ion-no-padding">
+                                    <ion-card-title>
+                                        <h1>
+                                            <span style="color: #282289; font-weight: bold;">Bienvenido</span></h1>
+                                    </ion-card-title>
+                                </ion-card-header>
+                                <ion-card-content class="ion-no-padding">
+                                    <p style="font-size: 18px; color: #242E4F;">
+                                        X-Jobs Exchange App es una forma práctica de darle a conocer a las personas tus habilidades.</p>
+                                </ion-card-content>
+                            </ion-card>
+                            <p class="to_bottom">
+                                <ion-button size-xs="8" class="secondary-btn" fill="outline" type="submit" expand="block" (click)="next()">
+                                    Siguiente
+                                </ion-button>
+                                <ion-button size-xs="8" class="tertiary-btn" type="submit" expand="block" (click)="accept()">
+                                    Omitir
+                                </ion-button>                                
+                            </p>
+                        </div>
+                    </ion-slide>
+
+                    <ion-slide style="margin-top: -20px;">
+                        <ion-card class="welcome_card">
+                            <ion-card-header class="ion-no-padding">
+                                <ion-card-title>
+                                    <h1>
+                                        <span style="color: #282289; font-weight: bold;">Localización</span></h1>
+                                </ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content class="ion-no-padding">
+                                <p style="font-size: 18px; color: #242E4F;">Nos gustaría ayudar a que nuestros clientes te encuentren más fácilmente, por lo tanto estaremos solicitando acceso a tu ubicación.</p>
+                            </ion-card-content>
+                        </ion-card>
+                        <p class="to_bottom">
+                            <ion-button size-xs="8" class="secondary-btn" fill="outline" type="submit" expand="block" (click)="next()">
+                                Siguiente
+                            </ion-button>
+                            <ion-button size-xs="8" class="tertiary-btn" type="submit" expand="block" (click)="previous()">
+                                Anterior
+                            </ion-button>                                
+                        </p>
+                    </ion-slide>
+
+                    <ion-slide style="margin-top: -20px;">
+                        <ion-card class="welcome_card">
+                            <ion-card-header class="ion-no-padding">
+                                <ion-card-title>
+                                    <h1>
+                                        <span style="color: #282289; font-weight: bold;">Camara</span></h1>
+                                </ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content class="ion-no-padding">
+                                <p style="font-size: 18px; color: #242E4F;">Puedes compartir fotografías directamente desde la cámara de tu celular para poder respaldar tu excelente trabajo.</p>
+                            </ion-card-content>
+                        </ion-card>
+                        <p class="to_bottom">
+                            <ion-button size-xs="8" class="secondary-btn" fill="outline" type="submit" expand="block" (click)="next()">
+                                Siguiente
+                            </ion-button>
+                            <ion-button size-xs="8" class="tertiary-btn" type="submit" expand="block" (click)="previous()">
+                                Anterior
+                            </ion-button>                                
+                        </p>
+                    </ion-slide>
+
+                    <ion-slide style="margin-top: -20px;">
+                        <ion-card class="welcome_card">
+                            <ion-card-header class="ion-no-padding">
+                                <ion-card-title>
+                                    <h1>
+                                        <span style="color: #282289; font-weight: bold;">Galería</span></h1>
+                                </ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content class="ion-no-padding">
+                                <p style="font-size: 18px; color: #242E4F;">O bien sube fotografías directamente desde tu galería para brindar mayor detalle de tu trabajo realizado.</p>
+                            </ion-card-content>
+                        </ion-card>
+                        <p class="to_bottom">
+                            <ion-button size-xs="8" class="secondary-btn" fill="outline" type="submit" expand="block" (click)="next()">
+                                Siguiente
+                            </ion-button>
+                            <ion-button size-xs="8" class="tertiary-btn" type="submit" expand="block" (click)="previous()">
+                                Anterior
+                            </ion-button>                                
+                        </p>
+                    </ion-slide>
+
+                    <ion-slide style="margin-top: -20px;">                    
+                        <ion-card class="welcome_card">
+                                <ion-card-header class="ion-no-padding">
+                                    <ion-card-title>
+                                        <h1>
+                                            <span style="color: #282289; font-weight: bold;">Gracias por usar XJobs</span></h1>
+                                    </ion-card-title>
+                                </ion-card-header>
+                                <ion-card-content class="ion-no-padding">
+                                    <p style="font-size: 18px; color: #242E4F;">
+                                        Registrate y configura tu perfil para acceder a miles de oportunidades de trabajo.</p>
+                                </ion-card-content>
+                            </ion-card>
+                        <p class="to_bottom">
+                            <ion-button size-xs="8" class="secondary-btn" fill="outline" type="submit" expand="block" (click)="accept()">
+                                Iniciar
+                            </ion-button>
+                            <ion-button size-xs="8" class="tertiary-btn" type="submit" expand="block" (click)="previous()">
+                                Anterior
+                            </ion-button>                                
+                        </p>
+                    </ion-slide>
+
+                </ion-slides>
+            </ion-card>
+        </ion-content>
+    </ion-app>
+
+    <style>
+        ion-slides {
+            height: 100%;
+        }
+        
+        .swiper-slide {
+            display: block;
+        }
+        
+        .swiper-slide h2 {
+            margin-top: 2.8rem;
+        }
+        
+        .swiper-slide img {
+            max-height: 50%;
+            max-width: 80%;
+            margin: 60px 0 40px;
+            pointer-events: none;
+        }
+        
+        b {
+            font-weight: 500;
+        }
+        
+        p {
+            padding: 0 40px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--ion-color-step-600, #60646b);
+        }
+        
+        p b {
+            color: var(--ion-text-color, #000000);
+        }
+    </style>
+</body>

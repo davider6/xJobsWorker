@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+    <h2 class="ion-text-center">
+        <strong>Olvidé mi contraseña</strong>
+    </h2>
+    <br>
+</ion-header>
+<ion-content>
+    <div>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item lines="full">
+                        <ion-input class="ion-text-left" [(ngModel)]="email" placeholder="Ingresa tu cuenta de correo electrónico" inputmode="number" type="text"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <div>
+        <ion-button size-xs="12" color="dark" type="submit" expand="block" (click)="processRequest()">
+            Reiniciar contraseña
+        </ion-button>
+    </div>
+</ion-content>
